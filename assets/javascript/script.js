@@ -1,5 +1,6 @@
  $(document).ready(function() {
 
+
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCnvr_DzP4nJOhWuYNMPR1mOP03ECQ19yA",
@@ -52,6 +53,14 @@
 
     
     $('#input-form').hide();
+    database.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function(snapshot) {
+   
+      // full list of items to the well
+    $(".results").append("<div class='well row'><span class='train-name col-md-2'> " + snapshot.val().firstName +
+      " </span><span class='employee-role col-md-2'> " + snapshot.val().lastName +
+      " </span><span class='employee-start col-md-2'> " + snapshot.val().age +
+      " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
+    }); 
   });
 
 
