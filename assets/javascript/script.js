@@ -13,30 +13,46 @@
 
   var database = firebase.database();
 
-//this will store all the inputs from the form into variables 
-  var firstName = $("#first-name").val().trim();
-  var lastName = $("#last-name").val().trim();
-  var age = $("#age").val().trim();
-  var phone = $("#number").val().trim();
+  //this will store all the inputs from the form into variables 
+  var firstName;
+  var lastName;
+  var age;
+  var phone;
 
-  $('#submit-form').on('click', function() {
+  var hideForm = function() {
+    $('#input-form').hide();
+  }
+  
 
+  $('#submit-form').on('click', function(e) {
+    e.preventDefault();
+
+    //sets the user values
+    firstName = $("#first-name").val().trim();
+    lastName = $("#last-name").val().trim();
+    age = $("#age").val().trim();
+    phone = $('#number').val().trim();
+
+    //sets user name to session storage 
+    sessionStorage.name = firstName;
+
+    //clears the user input
+    $("#first-name").val('');
+    $("#last-name").val('');
+    $("#age").val('');
+    $('#number').val('');
+
+    //sets the user to the db
     database.ref().push({
       firstName: firstName,
       lastName: lastName,
       age: age,
       phone: phone,
     });
-  
+
+    
+    $('#input-form').hide();
   });
-
-
-
-
-
-
-
-
 
 
  });
