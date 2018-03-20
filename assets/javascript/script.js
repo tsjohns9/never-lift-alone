@@ -41,22 +41,27 @@
     userObj.zip = $('#zip').val().trim();
   }
 
-  var ajaxRequest = function(zipCode) {
+
+  //gets user location based on zip code
+  var locationRequest = function(zipCode) {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:'+zipCode+'&key='+'AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc';
-
     $.ajax({ url: url, method: 'GET' }).then(function(response) {
+      
+      //stores the user latitude and longitude based on the zip as an object
       userObj.coordinates = response.results[0].geometry.location;
-      userObj.city = response.results[0].address_components[1].long_name;
-      console.log(userObj.coordinates)
 
-      //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api
+      //stores the user city based on zip code
+      userObj.city = response.results[0].address_components[1].long_name;
+
+      //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api, to set all user data at once
       database.ref().push(userObj);
 
-      //request to google places with coordinates
+      //invoke function to request to google places with coordinates
+      
     });
   };
 
-  
+  //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
     e.preventDefault();
 
@@ -72,10 +77,11 @@
     //hides form when submit is pressed
     $('#input-form').hide();
 
-    ajaxRequest(userObj.zip);
+    //gets the user location based on zip code
+    locationRequest(userObj.zip);
  
     database.ref().orderByChild("dateAdded").limitToFirst(10).on("child_added", function(snapshot) {
-   
+
       // full list of items to the well
     $(".results").append("<div class='well row'><span class='train-name col-md-2'> " + snapshot.val().firstName +
       " </span><span class='employee-role col-md-2'> " + snapshot.val().lastName +
