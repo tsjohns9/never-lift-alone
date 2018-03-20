@@ -41,26 +41,18 @@
     userObj.zip = $('#zip').val().trim();
   }
 
-  //function to invoke when ajax response completes
-  //  var ajaxDone = function(response) {
-  //    console.log(response.results[0]);
-  //    console.log(response.results[0].address_components[1].long_name);
-  //   //  userObj.city = response.results[0].address_components[1].long_name;
-
-  //    //sets the user to the db
-  //    database.ref().push(userObj);
-  //  };
-
   var ajaxRequest = function(zipCode) {
-    console.log(zipCode)
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:'+zipCode+'&key='+'AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc';
-    $.ajax({ url: url, method: 'GET' }).done(function(response) {
-      console.log(response.results);
-      // console.log(response.results[0].address_components[1].long_name);
-      //  userObj.city = response.results[0].address_components[1].long_name;
 
-      //sets the user to the db
+    $.ajax({ url: url, method: 'GET' }).then(function(response) {
+      userObj.coordinates = response.results[0].geometry.location;
+      userObj.city = response.results[0].address_components[1].long_name;
+      console.log(userObj.coordinates)
+
+      //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api
       database.ref().push(userObj);
+
+      //request to google places with coordinates
     });
   };
 
@@ -80,10 +72,8 @@
     //hides form when submit is pressed
     $('#input-form').hide();
 
-    console.log(userObj)
     ajaxRequest(userObj.zip);
-
-    // 
+ 
     database.ref().orderByChild("dateAdded").limitToFirst(10).on("child_added", function(snapshot) {
    
       // full list of items to the well
@@ -92,8 +82,6 @@
       " </span><span class='employee-start col-md-2'> " + snapshot.val().age +
       " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
     });
-    
-    ajaxRequest(zip);
   });
 
 
