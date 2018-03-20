@@ -1,0 +1,15 @@
+body{
+  
+    background-color: #b0bec5;
+}
+
+#header{
+    font-family: 'Arimo', sans-serif;
+    text-align: center;
+}
+
+#input-form{
+    font-family: 'Arimo', sans-serif;
+    background-image: url('../../assets/images/kettle.jpg');
+    width: 100%;
+}

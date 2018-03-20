@@ -1,4 +1,5 @@
  $(document).ready(function() {
+  $('.slider').slider();
 
   // Initialize Firebase
   var config = {
@@ -52,6 +53,7 @@
 
     
     $('#input-form').hide();
+  
   });
 
 
