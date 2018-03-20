@@ -1,6 +1,7 @@
  $(document).ready(function() {
   $('.slider').slider();
 
+
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCnvr_DzP4nJOhWuYNMPR1mOP03ECQ19yA",
@@ -50,10 +51,8 @@
       age: age,
       phone: phone,
     });
-
     
     $('#input-form').hide();
-  
   });
 
 
