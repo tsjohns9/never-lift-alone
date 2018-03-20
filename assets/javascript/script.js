@@ -1,6 +1,5 @@
  $(document).ready(function() {
-
-
+  //google maps geocode api: AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCnvr_DzP4nJOhWuYNMPR1mOP03ECQ19yA",
@@ -11,56 +10,90 @@
     messagingSenderId: "1059119511624"
   };
   firebase.initializeApp(config);
-
   var database = firebase.database();
 
-  //this will store all the inputs from the form into variables 
-  var firstName;
-  var lastName;
-  var age;
-  var phone;
+  //this will store all the inputs from the form into variables
+  var userObj = {
+    firstName: '',
+    lastName: '',
+    age: '',
+    phone: '',
+    zip: '',
+    city: '',
+    coordinates: ''
+  };
 
-  var hideForm = function() {
-    $('#input-form').hide();
-  }
-  
-
-  $('#submit-form').on('click', function(e) {
-    e.preventDefault();
-
-    //sets the user values
-    firstName = $("#first-name").val().trim();
-    lastName = $("#last-name").val().trim();
-    age = $("#age").val().trim();
-    phone = $('#number').val().trim();
-
-    //sets user name to session storage 
-    sessionStorage.name = firstName;
-
-    //clears the user input
+  //clears the form
+  var clearForm = function() {
     $("#first-name").val('');
     $("#last-name").val('');
     $("#age").val('');
     $('#number').val('');
+    $('#zip').val('');
+  };
 
-    //sets the user to the db
-    database.ref().push({
-      firstName: firstName,
-      lastName: lastName,
-      age: age,
-      phone: phone,
+  //gets user input from the form
+  var getUserInput = function() {
+    userObj.firstName = $("#first-name").val().trim();
+    userObj.lastName = $("#last-name").val().trim();
+    userObj.age = $("#age").val().trim();
+    userObj.phone = $('#number').val().trim();
+    userObj.zip = $('#zip').val().trim();
+  }
+
+  //function to invoke when ajax response completes
+  //  var ajaxDone = function(response) {
+  //    console.log(response.results[0]);
+  //    console.log(response.results[0].address_components[1].long_name);
+  //   //  userObj.city = response.results[0].address_components[1].long_name;
+
+  //    //sets the user to the db
+  //    database.ref().push(userObj);
+  //  };
+
+  var ajaxRequest = function(zipCode) {
+    console.log(zipCode)
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:'+zipCode+'&key='+'AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc';
+    $.ajax({ url: url, method: 'GET' }).done(function(response) {
+      console.log(response.results);
+      // console.log(response.results[0].address_components[1].long_name);
+      //  userObj.city = response.results[0].address_components[1].long_name;
+
+      //sets the user to the db
+      database.ref().push(userObj);
     });
+  };
 
-    
+  
+  $('#submit-form').on('click', function(e) {
+    e.preventDefault();
+
+    //sets the user values
+    getUserInput();
+
+    //sets user name to session storage 
+    sessionStorage.name = userObj.firstName;
+
+    //clears the user input
+    clearForm();
+
+    //hides form when submit is pressed
     $('#input-form').hide();
-    database.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function(snapshot) {
+
+    console.log(userObj)
+    ajaxRequest(userObj.zip);
+
+    // 
+    database.ref().orderByChild("dateAdded").limitToFirst(10).on("child_added", function(snapshot) {
    
       // full list of items to the well
     $(".results").append("<div class='well row'><span class='train-name col-md-2'> " + snapshot.val().firstName +
       " </span><span class='employee-role col-md-2'> " + snapshot.val().lastName +
       " </span><span class='employee-start col-md-2'> " + snapshot.val().age +
       " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
-    }); 
+    });
+    
+    ajaxRequest(zip);
   });
 
 
