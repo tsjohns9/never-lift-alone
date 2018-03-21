@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Never Lift Alone</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="assets/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">Never Lift Alone</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Log In</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="location.html">Find My Location</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Log In</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Find My Location</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center teal-text text-lighten-2">Get Connected Now</h1>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><video controls loop src="plank_couple.mp4" alt="Unsplashed background img 1" autoplay style="width: 100%"></div>
+  </div>
+<br>
+<br>
+
+
+  <div class="row" id="input-form">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first-name" type="text" class="validate">
+          <label for="first-name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last-name" type="text" class="validate">
+          <label for="last-name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="age" type="text" class="validate">
+          <label for="age">Age</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="number" type="text" class="validate">
+          <label for="number">Phone Number</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="zip" type="text" class="validate">
+          <label for="zip">Zip Code</label>
+        </div>
+      </div>
+        <button class="btn waves-effect waves-light" id="submit-form" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div class="results"></div>
+
+
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">A Little About Us</h5>
+          <p class="grey-text text-lighten-4">We are a team of individuals who were just as frustrated as you were, skipping gym time because we lacked our swoll mate. Join the community that is taking the fitness world by storm. Let everyone know how you found your gym mate!</p>
+
+
+        </div>
+
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul id="social-media">
+            <li><a href="https://www.facebook.com/neverliftalone/" target="_blank" class="fa fa-facebook"></a></li>
+            <li><a href="#" class="fa fa-twitter"></a></li>
+            <li><a href="ref=https://www.instagram.com/neverliftalone/" target="_blank" class="fa fa-instagram"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="assets/javascript/materialize.js"></script>
+  <script src="assets/javascript/init.js"></script>
+
+  </body>
+</html>
