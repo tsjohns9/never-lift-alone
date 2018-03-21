@@ -1,12 +1,16 @@
 //validates first and last name. a name must only contain letters, and be between 2 and 13 characters
 function validateName(userName) {
   var nameCheck = /^[A-Za-z\s]{2,13}$/ig;
-  return nameCheck.test(userName);
+  if (nameCheck.test(userName)) {
+    return true;
+  } else {
+    return 'Not a valid name'
+  }
 }
 
 //checks for 5 digits.
 function validateZip(userZip) {
-  var zipCheck = /^[0-9]{1,5}$/g;
+  var zipCheck = /^[0-9]{5}$/g;
   if (zipCheck.test(userZip)) {
     return true;
   } else {
@@ -17,7 +21,7 @@ function validateZip(userZip) {
 //validates age. returns true if valid
 function validAge(userAge) {  
   //checks for exactly 2 digits
-  var ageCheck = /^[0-9][0-9]$/g;
+  var ageCheck = /^[0-9]{2}$/g;
   
   //checks if age is older than 18
   if (ageCheck.test(userAge) && userAge > 17) {
