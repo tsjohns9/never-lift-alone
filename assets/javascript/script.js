@@ -49,15 +49,15 @@
       
       //stores the user latitude and longitude based on the zip as an object
       userObj.coordinates = response.results[0].geometry.location;
-
+      console.log(userObj.coordinates);
       //stores the user city based on zip code
       userObj.city = response.results[0].address_components[1].long_name;
 
       //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api, to set all user data at once
       database.ref().push(userObj);
 
-      //invoke function to request to google places with coordinates
-      
+      //invoke function to get map
+      initMap(userObj.coordinates);
     });
   };
 

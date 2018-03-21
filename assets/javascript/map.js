@@ -5,7 +5,7 @@
 // location will be an object representing the users lattitude and longitude
 
 function initMap(location) {
-
+  console.log("sanity");
   // we will need to make an HTML div with an ID of map to initialize the map
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
