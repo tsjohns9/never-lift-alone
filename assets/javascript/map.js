@@ -1,23 +1,47 @@
-// This needs to be added to the bottom of index.html to get the map info
-// <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0TMyaurfHnCORhKqG8lKjBrhXxT1pg9U&libraries=places"></script>
+var map;
+var infowindow;
 
-// creates a map based on the user location
-// location will be an object representing the users lattitude and longitude
+function initMap(locationObj) {
+  //user location based on zip code. stored as an object containing lattitude and longitude
+  var location = locationObj;
 
-function initMap(location) {
-  console.log("sanity");
-  // we will need to make an HTML div with an ID of map to initialize the map
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: location
+  //creates a map with the center at the lat & long from the zip code
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: location,
+    zoom: 12
   });
 
-  // puts the marker at our approximate location based off our zip
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map
-  });
+  infowindow = new google.maps.InfoWindow();
+
+  //creates a search radius for gyms within 10 miles of the lat & long of the user
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: location,
+    radius: 16093,
+    type: ['gym']
+  }, callback);
 }
 
-// function will get invoked in locationRequest(), which runs when a user submits their info
-// initMap(userObj.coordinates);
+//creates a map marker for each gym that came back in the search radius
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+// creates marker
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  // creates popup info for the location on click
+  google.maps.event.addListener(marker, 'click', function () {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}

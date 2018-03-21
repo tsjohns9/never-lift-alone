@@ -39,26 +39,31 @@
     userObj.age = $("#age").val().trim();
     userObj.phone = $('#number').val().trim();
     userObj.zip = $('#zip').val().trim();
-  }
+  };
 
+  // passed into the .then promise found in locationRequest(), to run upon a successful request
+  var ajaxDone = function(response) {
+     //stores the user latitude and longitude based on the zip as an object
+     userObj.coordinates = response.results[0].geometry.location;
+
+     //stores the user city based on zip code
+     userObj.city = response.results[0].address_components[1].long_name;
+
+     //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api, to set all user data at once
+     database.ref().push(userObj);
+
+     //invoke function to display map
+     initMap(userObj.coordinates);
+   };
 
   //gets user location based on zip code
   var locationRequest = function(zipCode) {
-    var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:'+zipCode+'&key='+'AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc';
-    $.ajax({ url: url, method: 'GET' }).then(function(response) {
-      
-      //stores the user latitude and longitude based on the zip as an object
-      userObj.coordinates = response.results[0].geometry.location;
-      console.log(userObj.coordinates);
-      //stores the user city based on zip code
-      userObj.city = response.results[0].address_components[1].long_name;
-
-      //sets the user to the db. We do this at the end of the ajax request to get the location of the user from the geolocation api, to set all user data at once
-      database.ref().push(userObj);
-
-      //invoke function to get map
-      initMap(userObj.coordinates);
-    });
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:' + zipCode + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
+    $.ajax({ url: url, method: 'GET' })
+      // .then is invoked upon a successful response from the ajax request
+      .then( resolve => ajaxDone(resolve) )
+      // .catch is invoked upon an error response from the ajax request
+      .catch( error => console.log('Could not connect to server.') );
   };
 
   //gets user input, and creates location request on click
@@ -80,6 +85,7 @@
     //gets the user location based on zip code
     locationRequest(userObj.zip);
  
+    // displays users to the screen
     database.ref().orderByChild("dateAdded").limitToFirst(10).on("child_added", function(snapshot) {
 
       // full list of items to the well
@@ -89,6 +95,4 @@
       " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
     });
   });
-
-
  });
