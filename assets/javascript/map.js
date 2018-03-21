@@ -1,23 +1,39 @@
-// This needs to be added to the bottom of index.html to get the map info
-// <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0TMyaurfHnCORhKqG8lKjBrhXxT1pg9U&libraries=places"></script>
+var map;
+var infowindow;
 
-// creates a map based on the user location
-// location will be an object representing the users lattitude and longitude
-
-function initMap(location) {
-
-  // we will need to make an HTML div with an ID of map to initialize the map
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: location
+function initMap(locationObj) {
+  var location = locationObj;
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: location,
+    zoom: 12
   });
 
-  // puts the marker at our approximate location based off our zip
-  var marker = new google.maps.Marker({
-    position: location,
-    map: map
-  });
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: location,
+    radius: 16093,
+    type: ['gym']
+  }, callback);
 }
 
-// function will get invoked in locationRequest(), which runs when a user submits their info
-// initMap(userObj.coordinates);
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function () {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
