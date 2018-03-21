@@ -1,4 +1,13 @@
  $(document).ready(function() {
+
+  // image effects
+  (function ($) {
+    $(function () {
+      $('.button-collapse').sideNav();
+      $('.parallax').parallax();
+    }); 
+  })(jQuery); // end of jQuery name space
+
   //google maps geocode api: AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc
   // Initialize Firebase
   var config = {
@@ -43,6 +52,16 @@
 
   // passed into the .then promise found in locationRequest(), to run upon a successful request
   var ajaxDone = function(response) {
+
+    // creates an error message if the ajax call was unsuccessful.
+    if (response.status !== 'OK') {
+      if (response.status === 'ZERO_RESULTS') {
+        throw new Error('Address not found.');
+      } else {
+        throw new Error('Could not connect to server.')
+      }
+    }
+
      //stores the user latitude and longitude based on the zip as an object
      userObj.coordinates = response.results[0].geometry.location;
 
@@ -63,7 +82,7 @@
       // .then is invoked upon a successful response from the ajax request
       .then( resolve => ajaxDone(resolve) )
       // .catch is invoked upon an error response from the ajax request
-      .catch( error => console.log('Could not connect to server.') );
+      .catch( error => console.log(error) );
   };
 
   //gets user input, and creates location request on click
