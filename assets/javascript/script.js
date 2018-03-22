@@ -79,9 +79,10 @@
       console.log(snapshot.val());
     
     // adds results to the page
-    $(".results").append("<div class='card-panel teal' id='result-card'><div id='icon-div'><i class='large material-icons'>account_circle</i></div><div id='name-div'> " + snapshot.val().firstName + "</div></div>");
-   };
-
+      $(".results").append("<div class='card-panel teal' id='result-card'><div id='icon-div'><i class='large material-icons'>account_circle</i></div><div id='name-div'> " + snapshot.val().firstName + "</div></div>");
+    });
+  };
+   
   //gets user location based on zip code
   var locationRequest = function(zipCode) {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:' + zipCode + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
