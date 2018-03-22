@@ -77,13 +77,9 @@
     // filters db results by the users. Creates div to append each user to the DOM. removes listener so it only runs when a new user is added.
     database.ref().orderByChild("city").startAt(userObj.city).endAt(userObj.city).on("child_added", function(snapshot) {
       console.log(snapshot.val());
-
-      // displays users to the screen
-      $(".results").append("<div class='well row'><span class='train-name col-md-2'> " + snapshot.val().firstName +
-        " </span><span class='employee-role col-md-2'> " + snapshot.val().lastName +
-        " </span><span class='employee-start col-md-2'> " + snapshot.val().age +
-        " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
-    });
+    
+    // adds results to the page
+    $(".results").append("<div class='card-panel teal' id='result-card'><div id='icon-div'><i class='large material-icons'>account_circle</i></div><div id='name-div'> " + snapshot.val().firstName + "</div></div>");
    };
 
   //gets user location based on zip code
@@ -95,6 +91,18 @@
       // .catch is invoked upon an error response from the ajax request
       .catch( error => console.log(error) );
   };
+
+  // Dropdown initialization
+  //$('.dropdown-trigger').click(function(e){
+    //console.log("working");
+    $('.dropdown-trigger').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: true, 
+      hover: false, 
+      gutter: 0, 
+      belowOrigin: false 
+    });  
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
