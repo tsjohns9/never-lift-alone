@@ -76,3 +76,29 @@ footer.page-footer {
   margin-bottom: 300px;
   width: 50%;
 }
+
+#result-card{
+  width: 300px;
+  height: 300px;
+  display: -webkit-inline-flex;
+  margin: 20px;
+}
+
+#icon-div{
+color: rgba(255,255,255,.9);
+float:left;
+}
+
+#name-div{
+  color: rgba(255,255,255,.9);
+  font-size: 25px;
+  padding:22px;
+}
+
+#activity-btn{
+width:332px;
+margin-left: 115px;
+margin-top: 30px;
+background-color: white;
+color: #26a69a;
+}

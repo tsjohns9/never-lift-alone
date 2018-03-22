@@ -85,6 +85,18 @@
       .catch( error => console.log(error) );
   };
 
+  // Dropdown initialization
+  //$('.dropdown-trigger').click(function(e){
+    //console.log("working");
+    $('.dropdown-trigger').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: true, 
+      hover: false, 
+      gutter: 0, 
+      belowOrigin: false 
+    });  
+
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
     e.preventDefault();
@@ -108,10 +120,9 @@
     database.ref().orderByChild("dateAdded").limitToFirst(10).on("child_added", function(snapshot) {
 
       // full list of items to the well
-    $(".results").append("<div class='well row'><span class='train-name col-md-2'> " + snapshot.val().firstName +
-      " </span><span class='employee-role col-md-2'> " + snapshot.val().lastName +
-      " </span><span class='employee-start col-md-2'> " + snapshot.val().age +
-      " </span><span class='employee-rate col-md-2'> " + snapshot.val().phone + " </span></div>");
+    $(".results").append("<div class='card-panel teal' id='result-card'><div id='icon-div'><i class='large material-icons'>account_circle</i></div><div id='name-div'> " + snapshot.val().firstName + "</div></div>");
     });
   });
  });
+
+
