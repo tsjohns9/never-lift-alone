@@ -41,7 +41,8 @@ function createMarker(place) {
 
   // creates popup info for the location on click
   google.maps.event.addListener(marker, 'click', function () {
-    infowindow.setContent(place.name);
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>'+
+    place.vicinity + '</div>');
     infowindow.open(map, this);
   });
 }
