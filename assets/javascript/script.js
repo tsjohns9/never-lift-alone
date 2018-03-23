@@ -151,7 +151,7 @@
       belowOrigin: false 
     });*/
     //this is for the initialization of the select field in HTML
-    $('select').material_select();
+    //$('select').material_select();
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
@@ -168,6 +168,8 @@
 
     //gets the user location based on address
     locationRequest(userObj.address);
+
+    $('select').material_select();
   });
 
    // image effects
