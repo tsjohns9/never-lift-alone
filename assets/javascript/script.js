@@ -86,16 +86,8 @@
   };
 
   // Dropdown initialization
-  //$('.dropdown-trigger').click(function(e){
-    //console.log("working");
-    $('.dropdown-trigger').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrain_width: true, 
-      hover: false, 
-      gutter: 0, 
-      belowOrigin: false 
-    });  
+  $('.dropdown-trigger').dropdown();
+
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
