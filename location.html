@@ -42,36 +42,34 @@
     </div>
     <div class="parallax"><video controls loop src="plank_couple.mp4" alt="Unsplashed background img 1" autoplay style="width: 100%"></div>
   </div>
-<br>
-<br>
-
+  <br>
 
   <div class="row" id="input-form">
-    <form class="col s12">
+    <form class="col s12" id="form-validate">
       <div class="row">
         <div class="input-field col s6">
-          <input id="first-name" type="text" class="validate">
-          <label for="first-name">First Name</label>
+          <input id="first-name" type="text" class="validate" required minLength="2">
+          <label for="first-name" >First Name</label>
         </div>
         <div class="input-field col s6">
-          <input id="last-name" type="text" class="validate">
+          <input id="last-name" type="text" class="validate" required minLength="2">
           <label for="last-name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="age" type="text" class="validate">
-          <label for="age">Age</label>
+          <input id="age" type="number" class="validate" required>
+          <label for="age" required>Age</label>
         </div>
         <div class="input-field col s6">
-          <input id="number" type="text" class="validate">
+          <input id="number" type="tel" class="validate" required>
           <label for="number">Phone Number</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="zip" type="text" class="validate">
-          <label for="zip">Zip Code</label>
+          <input id="address" type="text" class="validate" required>
+          <label for="address">Address</label>
         </div>
 
         <a class='dropdown-trigger btn' href='#' data-target='dropdown1' id="activity-btn">What Do You Want To Do Today?</a>
@@ -91,18 +89,16 @@
         </ul>
       </div>
         
-  <button class="btn waves-effect waves-light" id="submit-form" type="submit"       name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
-      </div>
-  </form>
-</div>
+      <button class="btn waves-effect waves-light" id="submit-form" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+    <!-- </div> --> 
+    </form>
+  </div>
 
   <div id="map"></div>
 
-  <div class="results row">
-  </div>
-
+  <div class="results row"></div>
 
   <footer class="page-footer teal">
     <div class="container">
@@ -125,17 +121,15 @@
       </div>
     </div>
   </footer>
-  
+
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="assets/javascript/materialize.js"></script>
-  <script src="assets/javascript/materialize.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0TMyaurfHnCORhKqG8lKjBrhXxT1pg9U&libraries=places"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="assets/javascript/materialize.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0TMyaurfHnCORhKqG8lKjBrhXxT1pg9U&libraries=places"></script>
   <script src="./assets/javascript/map.js" type="text/javascript"></script>
   <script src="./assets/javascript/validate.js" type="text/javascript"></script>
+  <script src="./assets/javascript/distance.js" type="text/javascript"></script>
   <script src="./assets/javascript/script.js" type="text/javascript"></script>
 
   </body>
