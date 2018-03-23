@@ -140,7 +140,7 @@
       .catch( error => console.log(error) );
   };
 
-  // Dropdown initialization
+  /* Dropdown initialization
   //$('.dropdown-trigger').click(function(e){
     $('.dropdown-trigger').dropdown({
       inDuration: 300,
@@ -149,8 +149,12 @@
       hover: false, 
       gutter: 0, 
       belowOrigin: false 
-    });  
-
+    });*/
+    //this is for the initialization of the select field in HTML
+    //$('select').material_select();
+    $('select').material_select();
+    $("#workout-select").on('change', function(workout) {
+      console.log($(this));
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
     e.preventDefault();
@@ -166,6 +170,9 @@
 
     //gets the user location based on address
     locationRequest(userObj.address);
+
+  });
+
   });
 
    // image effects
