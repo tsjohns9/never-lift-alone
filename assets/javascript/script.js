@@ -140,7 +140,7 @@
       .catch( error => console.log(error) );
   };
 
-  // Dropdown initialization
+  /* Dropdown initialization
   //$('.dropdown-trigger').click(function(e){
     $('.dropdown-trigger').dropdown({
       inDuration: 300,
@@ -149,7 +149,9 @@
       hover: false, 
       gutter: 0, 
       belowOrigin: false 
-    });  
+    });*/
+    //this is for the initialization of the select field in HTML
+    $('select').material_select();
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {

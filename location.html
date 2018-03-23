@@ -72,13 +72,13 @@
           <label for="address">Address</label>
         </div>
 
-        <a class='dropdown-trigger btn' href='#' data-target='dropdown1' id="activity-btn">What Do You Want To Do Today?</a>
+        <!--<a class='dropdown-trigger btn' href='#' data-target='dropdown1' id="activity-btn">What Do You Want To Do Today?</a>
 
-        <!-- Dropdown Structure -->
+        Dropdown Structure
         <ul id='dropdown1' class='dropdown-content'>
           <li><a href="#!">Weight Training (Novice)</a></li>
           <li><a href="#!">Weight Training (Intermediate)</a></li>
-          <li><a href="#!">Weight Training (Power Lifter)</a></li>
+          <li><a href="#!">Weight Training (Intermediate)</a></li>
           <li><a href="#!">Cross Fit</a></li>
           <li><a href="#!">Yoga</a></li>
           <li><a href="#!">Biking</a></li>
@@ -86,7 +86,23 @@
           <li><a href="#!">Running</a></li>
           <li><a href="#!">Swimming</a></li>
           <li><a href="#!">Climbing</a></li>
-        </ul>
+        </ul>-->
+
+        <div class="input-field col s12">
+          <select multiple>
+            <option value="" disabled selected>What Do You Want to do Today?</option>
+            <option value="1">Weight Training (Intermediate)</option>
+            <option value="2">Weight Training (Intermediate)</option>
+            <option value="3">Cross Fit</option>
+            <option value="4">Yoga</option>
+            <option value="5">Biking</option>
+            <option value="6">Hiking</option>
+            <option value="7">Running</option>
+            <option value="8">Swimming</option>
+            <option value="9">Climbing</option>
+          </select>
+          <label>Materialize Multiple Select</label>
+        </div>
       </div>
         
       <button class="btn waves-effect waves-light" id="submit-form" type="submit" name="action">Submit
