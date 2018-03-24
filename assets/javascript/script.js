@@ -20,7 +20,8 @@
     phone: '',
     address: '',
     city: '',
-    coordinates: ''
+    coordinates: '',
+    choices: []
   };
 
   // stores the radius of our search
@@ -63,7 +64,7 @@
     userObj.city = response.results[0].address_components[2].long_name;
 
     //invoke function to display map
-    initMap(userObj.coordinates, searchDistance);
+    initMap(userObj.coordinates, searchDistance, userObj.choices);
 
     // location of user who submitted the form
     var currentUser = userObj.coordinates;
@@ -177,9 +178,18 @@
     //$('select').material_select();
 
   $('select').material_select();
+
    $("#workout-select").on('change', function (workout) {
-     console.log($(this));
+     //console.log($(this));
+     var selectChoices = $("#workout-select").val();
+     console.log(selectChoices);
+
+     userObj.choices = selectChoices;
    }); 
+
+
+
+   
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
@@ -196,6 +206,14 @@
 
     // gets the users search radius
     searchDistance = $('#slide')['0'].value;
+
+    //var e = $("#workout-select");
+    //var grandma = e.options[e.selectedIndex].attr(data-choice);
+    //console.log(e);
+    //console.log(grandma);
+    //console.log($(this));
+
+
 
     //gets the user location based on address
     locationRequest(userObj.address);
