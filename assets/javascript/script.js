@@ -132,30 +132,35 @@
           );
         });
 
-        
+        // checks if anything was added to the results div. if nothing was added, then no users were found within the radius filter
+        if ($('.results').children().length < 1) {
+          $('.results').append(`<h2>No users found</h2>`);
+        }
+
+      // end of the condition to see if the snapshot is valid
+      // this else runs if the db is empty, and displays a message
       } else {
-        $('.results').append(`<h2>No users found</h2>`)
+        $('.results').append(`<h2>No users found</h2>`);
       }
       //sets the user to the db after we make our query so that our user does not return in the results.
       //We also do this within the ajax request because we need info for the user from the geocode api.
       database.ref().push(userObj);
     });
-
   };
 
    
   //gets user location based on address
-   var locationRequest = function (address) {
-     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
-    $.ajax({ url: url, method: 'GET' })
-      // .then is invoked upon a successful response from the ajax request
-      .then(function(resolve) {
-        ajaxDone(resolve)
-      })
-      // .catch is invoked upon an error response from the ajax request
-      .catch(function(error) {
-        console.log(error)
-      });
+  var locationRequest = function (address) {
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
+  $.ajax({ url: url, method: 'GET' })
+    // .then is invoked upon a successful response from the ajax request
+    .then(function(resolve) {
+      ajaxDone(resolve)
+    })
+    // .catch is invoked upon an error response from the ajax request
+    .catch(function(error) {
+      console.log(error)
+    });
   };
 
   /* Dropdown initialization
@@ -170,9 +175,12 @@
     });*/
     //this is for the initialization of the select field in HTML
     //$('select').material_select();
-    $('select').material_select();
-    $("#workout-select").on('change', function(workout) {
-      console.log($(this));
+
+  $('select').material_select();
+   $("#workout-select").on('change', function (workout) {
+     console.log($(this));
+   }); 
+
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
     e.preventDefault();
@@ -194,17 +202,14 @@
 
   });
 
-  });
+  // image effects
+  (function ($) {
+    $(function () {
+      $('.button-collapse').sideNav();
+      $('.parallax').parallax();
+    });
+  })(jQuery); // end of jQuery name space
 
-
-   // image effects
-   (function ($) {
-     $(function () {
-       $('.button-collapse').sideNav();
-       $('.parallax').parallax();
-     });
-   })(jQuery); // end of jQuery name space
-
-   $('select').material_select();
+  $('select').material_select();
 
  });
