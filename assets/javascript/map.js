@@ -1,7 +1,10 @@
 var map;
 var infowindow;
 
-function initMap(locationObj) {
+function initMap(locationObj, radius) {
+  //switches from miles to meters
+  radius = radius * 1609.34;
+
   //user location based on zip code. stored as an object containing lattitude and longitude
   var location = locationObj;
 
@@ -17,7 +20,7 @@ function initMap(locationObj) {
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: location,
-    radius: 16093,
+    radius: radius,
     type: ['gym']
   }, callback);
 }
