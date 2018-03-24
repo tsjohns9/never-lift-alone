@@ -138,13 +138,30 @@ console.log(userObj);
 
         // checks if anything was added to the results div. if nothing was added, then no users were found within the radius filter
         if ($('.results').children().length < 1) {
-          $('.results').append(`<h2>No users found</h2>`);
+          $('.results').append(`
+            <div class="col s12">
+              <div class="icon-block>
+                <h2 class="center brown-text">
+                  <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
+                </h2>
+                <h5 class="center">No Users Found, Please Modify Search</h5>
+              </div>
+            </div>`
+          );
         }
 
       // end of the condition to see if the snapshot is valid
       // this else runs if the db is empty, and displays a message
       } else {
-        $('.results').append(`<h2>No users found</h2>`);
+        $('.results').append(`
+        <div class="col s12">
+          <div class="icon-block>
+            <h2 class="center brown-text">
+              <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
+            </h2>
+            <h5 class="center">No Users Found, Please Modify Search</h5>
+          </div>
+        </div>`);
       }
       //sets the user to the db after we make our query so that our user does not return in the results.
       //We also do this within the ajax request because we need info for the user from the geocode api.
@@ -163,7 +180,15 @@ console.log(userObj);
     })
     // .catch is invoked upon an error response from the ajax request
     .catch(function(error) {
-      console.log(error)
+      $('.results').append(`
+        <div class="col s12">
+          <div class="icon-block>
+            <h2 class="center brown-text">
+              <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
+            </h2>
+            <h5 class="center">${error.message}</h5>
+          </div>
+        </div>`);
     });
   };
 
