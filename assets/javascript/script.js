@@ -23,7 +23,7 @@
     coordinates: '',
     choices: []
   };
-
+console.log(userObj);
   // stores the radius of our search
   var searchDistance;
   
