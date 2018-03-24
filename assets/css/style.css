@@ -102,3 +102,14 @@ margin-top: 30px;
 background-color: white;
 color: #26a69a;
 }
+
+.range-field {
+  margin: 0 auto;
+  width: 50%;
+}
+
+#distance-slider {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+}
