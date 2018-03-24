@@ -117,7 +117,6 @@ console.log(userObj);
         // sort gets called on allUserArray to return a new array. map gets called on the returned array from allUserArr.sort
 
 
-
         // returns users who are within the specified search radius
         //returns users who pick the same type of workout
         }).filter(function(a) {
@@ -169,7 +168,6 @@ console.log(userObj);
     });
   };
 
-   
   //gets user location based on address
   var locationRequest = function (address) {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
@@ -192,19 +190,6 @@ console.log(userObj);
     });
   };
 
-  /* Dropdown initialization
-  //$('.dropdown-trigger').click(function(e){
-    $('.dropdown-trigger').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrain_width: true, 
-      hover: false, 
-      gutter: 0, 
-      belowOrigin: false 
-    });*/
-    //this is for the initialization of the select field in HTML
-    //$('select').material_select();
-
   $('select').material_select();
 
    $("#workout-select").on('change', function (workout) {
@@ -214,10 +199,6 @@ console.log(userObj);
 
      userObj.choices = selectChoices;
    }); 
-
-
-
-   
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
@@ -234,14 +215,6 @@ console.log(userObj);
 
     // gets the users search radius
     searchDistance = $('#slide')['0'].value;
-
-    //var e = $("#workout-select");
-    //var grandma = e.options[e.selectedIndex].attr(data-choice);
-    //console.log(e);
-    //console.log(grandma);
-    //console.log($(this));
-
-
 
     //gets the user location based on address
     locationRequest(userObj.address);
