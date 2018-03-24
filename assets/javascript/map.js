@@ -1,7 +1,7 @@
 var map;
 var infowindow;
 
-function initMap(locationObj, radius) {
+function initMap(locationObj, radius, choices) {
   //switches from miles to meters
   radius = radius * 1609.34;
 
@@ -21,7 +21,7 @@ function initMap(locationObj, radius) {
   service.nearbySearch({
     location: location,
     radius: radius,
-    type: ['gym']
+    keyword: choices
   }, callback);
 }
 
