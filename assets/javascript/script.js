@@ -116,9 +116,12 @@
         // at this point we have a new array in order from closest to furthest. map is used to append each result to the page.
         // sort gets called on allUserArray to return a new array. map gets called on the returned array from allUserArr.sort
 
-  //*************** create a new filter method HERE to filter based on user activity before appending to the screen. *************************///
+
 
         // returns users who are within the specified search radius
+        //returns users who pick the same type of workout
+        }).filter(function(a) {
+          return a.choices === userObj.choices
         }).filter(function(a) {
           return a.distance <= searchDistance
         }).map(function(a) {
