@@ -113,3 +113,47 @@ color: #26a69a;
   text-align: center;
   font-size: 14px;
 }
+
+.button-div{
+  width:167px;
+  margin:auto;
+}
+
+/*@media only screen and (max-width: 768px) {
+  #header-contact {
+      width: 100%;
+      font-size: 30px;
+      margin-top: 100px;
+  } */
+
+  @media only screen and (max-width: 667px) {
+    /* For mobile phones: */
+    .header {
+        width: 100%;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+   @media only screen and (max-width: 667px) {
+      /* For mobile phones: */
+      #logo-container {
+          font-size: 20px;
+          font-weight: bold;
+      }
+
+   @media only screen and (max-width: 667px) {
+        /* For mobile phones: */
+        #download-button {
+        margin-top: 82px;
+        }
+
+  @media only screen and (max-width: 667px) {
+          /* For mobile phones: */
+          #download-button {
+          margin-top: 82px;
+          }
+  /*@media only screen and (max-width: 667px) {
+       
+          #submit-form {
+          margin-left: 100px;
+            }
