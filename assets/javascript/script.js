@@ -20,7 +20,8 @@
     phone: '',
     address: '',
     city: '',
-    coordinates: ''
+    coordinates: '',
+    choices: []
   };
 
   // stores the radius of our search
@@ -63,7 +64,7 @@
     userObj.city = response.results[0].address_components[2].long_name;
 
     //invoke function to display map
-    initMap(userObj.coordinates, searchDistance);
+    initMap(userObj.coordinates, searchDistance, userObj.choices);
 
     // location of user who submitted the form
     var currentUser = userObj.coordinates;
@@ -115,9 +116,12 @@
         // at this point we have a new array in order from closest to furthest. map is used to append each result to the page.
         // sort gets called on allUserArray to return a new array. map gets called on the returned array from allUserArr.sort
 
-  //*************** create a new filter method HERE to filter based on user activity before appending to the screen. *************************///
+
 
         // returns users who are within the specified search radius
+        //returns users who pick the same type of workout
+        }).filter(function(a) {
+          return a.choices === userObj.choices
         }).filter(function(a) {
           return a.distance <= searchDistance
         }).map(function(a) {
@@ -177,9 +181,18 @@
     //$('select').material_select();
 
   $('select').material_select();
+
    $("#workout-select").on('change', function (workout) {
-     console.log($(this));
+     //console.log($(this));
+     var selectChoices = $("#workout-select").val();
+     console.log(selectChoices);
+
+     userObj.choices = selectChoices;
    }); 
+
+
+
+   
 
   //gets user input, and creates location request on click
   $('#submit-form').on('click', function(e) {
@@ -196,6 +209,14 @@
 
     // gets the users search radius
     searchDistance = $('#slide')['0'].value;
+
+    //var e = $("#workout-select");
+    //var grandma = e.options[e.selectedIndex].attr(data-choice);
+    //console.log(e);
+    //console.log(grandma);
+    //console.log($(this));
+
+
 
     //gets the user location based on address
     locationRequest(userObj.address);
