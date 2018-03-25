@@ -146,6 +146,7 @@ display:none;
           font-weight: bold;
       }
     }
+
    @media only screen and (max-width: 667px) {
         /* For mobile phones: */
         #download-button {
@@ -159,8 +160,23 @@ display:none;
           margin-top: 82px;
           }
         }
+
   /*@media only screen and (max-width: 667px) {
        
           #submit-form {
           margin-left: 100px;
             }
+            } */
+#result-card{
+  background-image: url("../images/barbell2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+#name-div p {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  -webkit-text-stroke: 1px black;
+}
