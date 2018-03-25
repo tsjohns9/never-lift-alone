@@ -114,6 +114,10 @@ color: #26a69a;
   font-size: 14px;
 }
 
+.d-none{
+display:none;
+}
+
 .button-div{
   width:167px;
   margin:auto;
@@ -156,7 +160,8 @@ color: #26a69a;
           margin-top: 82px;
           }
         }
-/*   /*@media only screen and (max-width: 667px) {
+
+  /*@media only screen and (max-width: 667px) {
        
           #submit-form {
           margin-left: 100px;
