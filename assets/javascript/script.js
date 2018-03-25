@@ -23,7 +23,15 @@
     coordinates: '',
     choices: []
   };
-console.log(userObj);
+
+  var resetButton = $(`
+  <div class="button-div">
+    <button class="btn waves-effect waves-light" id="submit-form" onClick="window.location.reload();>
+        Search Again
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+  `);
   // stores the radius of our search
   var searchDistance;
   
@@ -85,6 +93,7 @@ console.log(userObj);
 
       //checks if the db is empty or not. doesn't do anything if its empty
       if (snapshot.val() !== null) {
+        $("#map").removeClass("d-none");
         // gets all the keys
         allUserKeys = Object.keys(allUsers);
 
@@ -145,8 +154,15 @@ console.log(userObj);
                 </h2>
                 <h5 class="center">No Users Found, Please Modify Search</h5>
               </div>
-            </div>`
-          );
+            </div>
+            <div class="row">
+              <div class="button-div">
+                <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
+                Search Again
+                </button>
+              </div>
+            </div>
+        `);
         }
 
       // end of the condition to see if the snapshot is valid
@@ -159,8 +175,16 @@ console.log(userObj);
               <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
             </h2>
             <h5 class="center">No Users Found, Please Modify Search</h5>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="button-div">
+              <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
+                Search Again
+              </button>
           </div>
-        </div>`);
+        </div>
+        `);
       }
       //sets the user to the db after we make our query so that our user does not return in the results.
       //We also do this within the ajax request because we need info for the user from the geocode api.
@@ -186,7 +210,15 @@ console.log(userObj);
             </h2>
             <h5 class="center">${error.message}</h5>
           </div>
-        </div>`);
+        </div>
+        <div class="row">
+          <div class="button-div">
+              <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
+                Search Again
+              </button>
+          </div>
+        </div>
+        `);
     });
   };
 
