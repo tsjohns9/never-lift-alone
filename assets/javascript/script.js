@@ -128,9 +128,13 @@ console.log(userObj);
           $(".results").append(`
             <div class='card-panel teal' id='result-card'>
               <div id='icon-div'>
-                <i class='large material-icons'>account_circle</i>
+                <i class='large material-icons'>perm_identity</i>
               </div>
-              <div id='name-div'> ${a.firstName} ${a.distance}</div>
+              <div id='name-div'> 
+                <p>${a.firstName}</p>
+                <p>${a.distance} miles away from you</p>
+                <p>${a.phone}</p>
+              </div>
             </div>`
           );
         });
