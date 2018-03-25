@@ -114,6 +114,10 @@ color: #26a69a;
   font-size: 14px;
 }
 
+.d-none{
+display:none;
+}
+
 .button-div{
   width:167px;
   margin:auto;
@@ -133,6 +137,7 @@ color: #26a69a;
         font-size: 25px;
         font-weight: bold;
     }
+  }
 
    @media only screen and (max-width: 667px) {
       /* For mobile phones: */
@@ -140,18 +145,20 @@ color: #26a69a;
           font-size: 20px;
           font-weight: bold;
       }
-
+    }
    @media only screen and (max-width: 667px) {
         /* For mobile phones: */
         #download-button {
         margin-top: 82px;
         }
+      }
 
   @media only screen and (max-width: 667px) {
           /* For mobile phones: */
           #download-button {
           margin-top: 82px;
           }
+        }
   /*@media only screen and (max-width: 667px) {
        
           #submit-form {
