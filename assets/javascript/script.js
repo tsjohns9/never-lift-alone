@@ -214,10 +214,14 @@
   $('#submit-form').on('click', function(e) {
     e.preventDefault();
 
+    // regular expression to check for a valid phone number
+    var phoneCheck = /^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/;
+
     //sets the user values
     getUserInput();
     
     // checks if we have valid input by searching the userObj for any key value of ''
+
     var verFields = !Object.values(userObj).includes('');
     //var pattern = /^((([0-9]{3}))|([0-9]{3}))[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/;
     
@@ -239,15 +243,29 @@
      else { 
        clearForm();
 
-      //hides form when submit is pressed
-      $('#input-form').hide();
 
-      // gets the users search radius
-      searchDistance = $('#slide')['0'].value;
+      // checks if the first and last name is at least 2 characters, and the age is at least 17
+      if (userObj.firstName.length > 1 && userObj.lastName.length > 1 && userObj.age > 17) {
+        
+        // checks if the user put in a valid phone number
+        if (phoneCheck.test(userObj.phone)) {
+          
+          //clears the user input
+          clearForm();
 
-      //gets the user location based on address
-      locationRequest(userObj.address);
-     }
+          //hides form when submit is pressed
+          $('#input-form').hide();
+
+          // gets the users search radius
+          searchDistance = $('#slide')['0'].value;
+
+
+          //gets the user location based on address
+          locationRequest(userObj.address);
+        }
+      }
+    }
+
   });
 
   // image effects
