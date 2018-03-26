@@ -18,9 +18,8 @@
     age: '',
     phone: '',
     address: '',
-    city: '',
-    coordinates: '',
-    choices: []
+    coordinates: undefined,
+    choices: ''
   };
 
   // creates the reset button for cases when no users/results are returned
@@ -81,9 +80,6 @@
 
     // stores the user latitude and longitude as an object
     userObj.coordinates = response.results[0].geometry.location;
-
-    // stores the user city based on address
-    userObj.city = response.results[0].address_components[2].long_name;
 
     // invoke function to display map
     initMap(userObj.coordinates, searchDistance, userObj.choices);
@@ -220,18 +216,21 @@
 
     //sets the user values
     getUserInput();
+    
+    // checks if we have valid input by searching the userObj for any key value of ''
+    if (!Object.values(userObj).includes('')) {
+      //clears the user input
+      clearForm();
 
-    //clears the user input
-    clearForm();
+      //hides form when submit is pressed
+      $('#input-form').hide();
 
-    //hides form when submit is pressed
-    $('#input-form').hide();
+      // gets the users search radius
+      searchDistance = $('#slide')['0'].value;
 
-    // gets the users search radius
-    searchDistance = $('#slide')['0'].value;
-
-    //gets the user location based on address
-    locationRequest(userObj.address);
+      //gets the user location based on address
+      locationRequest(userObj.address);
+    }
   });
 
   // image effects
