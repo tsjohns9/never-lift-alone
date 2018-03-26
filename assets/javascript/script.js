@@ -1,5 +1,4 @@
  $(document).ready(function() {
-  //google maps geocode api: AIzaSyD66EiTmbLSvi2GWAiZSLKB3CowEYbvxRc
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCnvr_DzP4nJOhWuYNMPR1mOP03ECQ19yA",
@@ -12,7 +11,7 @@
   firebase.initializeApp(config);
   var database = firebase.database();
 
-  // userObj represents the current user. It is the person who last submitted the form. this will store all the inputs from the form into variables
+  // userObj represents the person who last submitted the form. this will store all the inputs from the form
   var userObj = {
     firstName: '',
     lastName: '',
@@ -24,14 +23,29 @@
     choices: []
   };
 
+  // creates the reset button for cases when no users/results are returned
   var resetButton = $(`
-  <div class="button-div">
-    <button class="btn waves-effect waves-light" id="submit-form" onClick="window.location.reload();>
-        Search Again
-      <i class="material-icons right">send</i>
-    </button>
-  </div>
+    <div class="row">
+      <div class="button-div">
+        <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
+          Search Again
+        </button>
+      </div>
+    </div>
   `);
+
+  // creates a message when no users are found
+   var noUserMsgDiv = $(`
+    <div class="col s12">
+      <div class="icon-block>
+        <h2 class="center brown-text">
+          <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
+        </h2>
+        <h5 class="center">No Users Found, Please Modify Search</h5>
+      </div>
+    </div>
+  `);
+
   // stores the radius of our search
   var searchDistance;
   
@@ -44,7 +58,7 @@
     $('#address').val('');
   };
 
-  //gets user input from the form
+  // gets user input from the form
   var getUserInput = function() {
     userObj.firstName = $("#first-name").val().trim();
     userObj.lastName = $("#last-name").val().trim();
@@ -65,13 +79,13 @@
       }
     }
 
-    //stores the user latitude and longitude as an object
+    // stores the user latitude and longitude as an object
     userObj.coordinates = response.results[0].geometry.location;
 
-    //stores the user city based on address
+    // stores the user city based on address
     userObj.city = response.results[0].address_components[2].long_name;
 
-    //invoke function to display map
+    // invoke function to display map
     initMap(userObj.coordinates, searchDistance, userObj.choices);
 
     // location of user who submitted the form
@@ -91,9 +105,12 @@
       // stores all the users from the db locally
       allUsers = snapshot.val();
 
-      //checks if the db is empty or not. doesn't do anything if its empty
+      // checks if the db is empty or not. doesn't do anything if its empty
       if (snapshot.val() !== null) {
+
+        // reveals the map to show places
         $("#map").removeClass("d-none");
+
         // gets all the keys
         allUserKeys = Object.keys(allUsers);
 
@@ -115,25 +132,23 @@
         }
 
         // loops through each object in the allUserArr, and sorts each object from smallest to largest based on the value of distance
-        // allUserArr is an array. sort is an array method to filter based off some value. It returns a new array.
         allUserArr.sort(function(a,b) {
+
           // rounds the number to 1 decimal place
           a.distance = (Math.round(a.distance * 10) / 10);
           b.distance = (Math.round(b.distance * 10) / 10);
           return a.distance - b.distance
 
-        // at this point we have a new array in order from closest to furthest. map is used to append each result to the page.
-        // sort gets called on allUserArray to return a new array. map gets called on the returned array from allUserArr.sort
-
-
-        // returns users who are within the specified search radius
-        //returns users who pick the same type of workout
+        // returns users who pick the same type of workout
         }).filter(function(a) {
           return a.choices === userObj.choices
+
+          // returns users who are within the specified search radius
         }).filter(function(a) {
           return a.distance <= searchDistance
-        }).map(function(a) {
+
           // loops through each object to append info to the screen
+        }).map(function(a) {
           $(".results").append(`
             <div class='card-panel teal' id='result-card'>
               <div id='icon-div'>
@@ -150,62 +165,32 @@
 
         // checks if anything was added to the results div. if nothing was added, then no users were found within the radius filter
         if ($('.results').children().length < 1) {
-          $('.results').append(`
-            <div class="col s12">
-              <div class="icon-block>
-                <h2 class="center brown-text">
-                  <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
-                </h2>
-                <h5 class="center">No Users Found, Please Modify Search</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="button-div">
-                <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
-                Search Again
-                </button>
-              </div>
-            </div>
-        `);
+          $('.results').append(noUserMsgDiv, resetButton);
         }
 
-      // end of the condition to see if the snapshot is valid
-      // this else runs if the db is empty, and displays a message
-      } else {
-        $('.results').append(`
-        <div class="col s12">
-          <div class="icon-block>
-            <h2 class="center brown-text">
-              <i class="material-icons" style="margin-left:50%; margin-top:20px;">add_location</i>
-            </h2>
-            <h5 class="center">No Users Found, Please Modify Search</h5>
-          </div> 
-        </div>
-        <div class="row">
-          <div class="button-div">
-              <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
-                Search Again
-              </button>
-          </div>
-        </div>
-        `);
+      } else { // end of the condition to see if the db is empty
+        $('.results').append(noUserMsgDiv, resetButton);
       }
-      //sets the user to the db after we make our query so that our user does not return in the results.
-      //We also do this within the ajax request because we need info for the user from the geocode api.
+
+      // sets the user to the db after we make our query so that our user does not return in the results.
       database.ref().push(userObj);
     });
   };
 
-  //gets user location based on address
+  // gets user location based on address
   var locationRequest = function (address) {
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyAvug71J9dikt9EgBYuElKS4-9ahCJ1dow';
   $.ajax({ url: url, method: 'GET' })
+
     // .then is invoked upon a successful response from the ajax request
     .then(function(resolve) {
       ajaxDone(resolve)
     })
+
     // .catch is invoked upon an error response from the ajax request
     .catch(function(error) {
+
+      // creates an error message from an unsuccessful ajax request
       $('.results').append(`
         <div class="col s12">
           <div class="icon-block>
@@ -214,25 +199,18 @@
             </h2>
             <h5 class="center">${error.message}</h5>
           </div>
-        </div>
-        <div class="row">
-          <div class="button-div">
-              <button class="btn waves-effect waves-light" style="width:176px;" onClick="window.location.reload();">
-                Search Again
-              </button>
-          </div>
-        </div>
-        `);
+        </div>`,
+        resetButton
+      );
     });
   };
 
   $('select').material_select();
 
+  // gets the users choice
    $("#workout-select").on('change', function (workout) {
-     //console.log($(this));
      var selectChoices = $("#workout-select").val();
      console.log(selectChoices);
-
      userObj.choices = selectChoices;
    }); 
 
@@ -254,7 +232,6 @@
 
     //gets the user location based on address
     locationRequest(userObj.address);
-
   });
 
   // image effects
@@ -264,7 +241,4 @@
       $('.parallax').parallax();
     });
   })(jQuery); // end of jQuery name space
-
-  $('select').material_select();
-
  });
