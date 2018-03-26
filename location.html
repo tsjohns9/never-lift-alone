@@ -62,7 +62,9 @@
           <label for="age" required>Age</label>
         </div>
         <div class="input-field col s12 m6 l6">
-          <input id="number" type="tel" class="validate" required minLength="7">
+
+          <input id="number" type="number" class="validate" required>
+
           <label for="number">Phone Number</label>
         </div>
       </div>
@@ -78,8 +80,8 @@
             <option value="gym">Weight Training</option>
             <option value="crossfit">Cross Fit</option>
             <option value="yoga">Yoga</option>
-            <option value="biking trail">Biking</option>
-            <option value="hiking trail">Hiking</option>
+            <option value="bike trail">Biking</option>
+            <option value="hiking">Hiking</option>
             <option value="running trail">Running</option>
             <option value="swimming">Swimming</option>
             <option value="wall rock climbing">Climbing</option>
@@ -101,10 +103,11 @@
           </form>
         </div>
       </div>
+      <div id="verification-fail"></div>
 
     <div class="row">
       <div class="button-div">
-        <button class="btn waves-effect waves-light" id="submit-form" type="submit" name="action">Search Users
+        <button class="btn waves-effect waves-light" id="submit-form" type="submit" name="action">Search
           <i class="material-icons right">send</i>
         </button>
       </div>

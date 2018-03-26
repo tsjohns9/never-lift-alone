@@ -221,7 +221,28 @@
     getUserInput();
     
     // checks if we have valid input by searching the userObj for any key value of ''
-    if (!Object.values(userObj).includes('')) {
+
+    var verFields = !Object.values(userObj).includes('');
+    //var pattern = /^((([0-9]{3}))|([0-9]{3}))[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/;
+    
+    if (verFields === false) {
+     $("#verification-fail").text("**Please Fill Out Each Field**");
+     
+    }
+
+    //else if (userObj.phone != pattern)  {
+      //$("#verification-fail").text("**Please Input a Valid Phone Number**");
+      //console.log(pattern);
+    
+    //}
+
+    else if (userObj.phone.length != 10)  {
+      $("#verification-fail").text("**Please Input a 10 Digit Number with NO spaces or Dashes**");
+    }
+      //clears the user input
+     else { 
+       clearForm();
+
 
       // checks if the first and last name is at least 2 characters, and the age is at least 17
       if (userObj.firstName.length > 1 && userObj.lastName.length > 1 && userObj.age > 17) {
@@ -238,11 +259,13 @@
           // gets the users search radius
           searchDistance = $('#slide')['0'].value;
 
+
           //gets the user location based on address
           locationRequest(userObj.address);
         }
       }
     }
+
   });
 
   // image effects
