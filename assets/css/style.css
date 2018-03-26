@@ -123,6 +123,12 @@ display:none;
   margin:auto;
 }
 
+#verification-fail{
+  color: red;
+  text-align: center;
+  font-size: 1rem;
+}
+
 /*@media only screen and (max-width: 768px) {
   #header-contact {
       width: 100%;
